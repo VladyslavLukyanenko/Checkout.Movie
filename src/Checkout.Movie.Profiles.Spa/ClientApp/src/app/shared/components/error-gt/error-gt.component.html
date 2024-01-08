@@ -1,0 +1,3 @@
+<span
+  *ngIf="control.hasError('gt') && !control.hasError('required')"
+  [innerHTML]="'validation.errors.gt' | translate:{'value': minValue}"></span>

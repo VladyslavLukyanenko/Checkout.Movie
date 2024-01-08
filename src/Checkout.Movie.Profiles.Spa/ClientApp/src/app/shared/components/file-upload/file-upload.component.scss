@@ -1,0 +1,66 @@
+:host {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-content: center;
+}
+
+.FileUploader {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+
+  &-btn {
+    transition: .3s background-color;
+    box-sizing: border-box;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    outline: 0;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    margin: 0;
+    min-width: 64px;
+    line-height: 36px;
+    padding: 0 16px;
+    border-radius: 4px;
+    overflow: visible;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: rgba(0, 0, 0, .04);
+    }
+  }
+
+  &-btnText {
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+
+  &-btnIcon {
+    vertical-align: middle;
+  }
+
+  &-file {
+    display: none;
+  }
+
+  &-fileName {
+    display: block;
+    color: rgba(0, 0, 0, .5);
+    font-size: 10px;
+    word-break: brepst-word;
+  }
+}

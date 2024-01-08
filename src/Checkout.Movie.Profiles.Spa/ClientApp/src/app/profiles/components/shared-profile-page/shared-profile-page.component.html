@@ -1,0 +1,38 @@
+<mat-card class="SharedProfilePage">
+  <mat-card-header>
+    <h2 mat-card-title *ngIf="!sharingToken.value">
+      Please insert profile tokent to get it
+    </h2>
+    <h2 mat-card-title *ngIf="isTokenInvalid$ | async">
+      This token is invalid. Is no exist or owner rejected it
+    </h2>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field appearance="outline" style="width: 100%;">
+      <mat-label>Sharing token</mat-label>
+      <input [formControl]="sharingToken" matNativeControl placeholder="Sharing token">
+    </mat-form-field>
+    <pst-shared-profile
+      *ngIf="!(isTokenInvalid$ | async)" [profile]="profile$ | async"
+    ></pst-shared-profile>
+  </mat-card-content>
+  <mat-card-actions *ngIf="!(isTokenInvalid$ | async)">
+    <button
+      *ngIf="requiresAuthorization$ | async"
+      (click)="requestAuthorization()"
+      mat-button
+      [disabled]="!!(requestedAccessDate$ | async)"
+      mat-stroked-button
+      color="primary"
+    >
+      <mat-icon>security</mat-icon>
+      Request access
+    </button>
+    <small *ngIf="requestedAccessDate$ | async as requestedAt">
+      Already requested: {{requestedAt | dateFromNow}}
+    </small>
+  </mat-card-actions>
+</mat-card>
+<button mat-button routerLink="/login" color="primary">
+  Login to Account
+</button>

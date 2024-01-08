@@ -1,0 +1,21 @@
+<!--<pst-select-->
+<!--  (filterValue)="search($event)"-->
+<!--  (valueChange)="dispatchValueChange($event)"-->
+<!--  [formControl]="control"-->
+<!--  [placeholder]="placeholder"-->
+<!--  [valueAccessor]="timeValueAccessor"-->
+<!--  [source]="filteredOptions$ | async"-->
+<!--  [searchThrottling]="0"-->
+<!--  [template]="optionTmpl"-->
+<!--&gt;</pst-select>-->
+<!--<ng-template #optionTmpl let-time>-->
+<!--  <span mat-line>{{time.displayValue}}</span>-->
+<!--</ng-template>-->
+<mat-select
+  (valueChange)="dispatchValueChange($event)"
+  [formControl]="control"
+  [placeholder]="placeholder">
+  <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option.value">
+    {{option.displayValue}}
+  </mat-option>
+</mat-select>

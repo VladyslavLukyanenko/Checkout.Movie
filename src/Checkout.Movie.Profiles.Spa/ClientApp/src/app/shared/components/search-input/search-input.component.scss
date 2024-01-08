@@ -1,0 +1,21 @@
+:host {
+  .mat-form-field {
+    position: relative;
+    width: 100%;
+
+    .mat-icon {
+      position: absolute;
+      bottom: -5px;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+
+      img {
+        width: 18px;
+        height: 18px;
+        opacity: .7;
+      }
+    }
+  }
+}

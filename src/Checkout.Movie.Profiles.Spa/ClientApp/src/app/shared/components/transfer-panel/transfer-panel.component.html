@@ -1,0 +1,128 @@
+<div fxLayout="row" class="TransferPanel" fxLayout.gt-md="row" fxLayout.lt-md="column">
+  <div class="TransferPanel-panel" fxFlex="1 1 50%" fxFlex.lt-md="1 1 100%">
+    <div class="TransferPanel-title">
+      <mat-form-field class="TransferPanel-search">
+        <input matInput [(ngModel)]="sourceSearchTerm" [placeholder]="sourceListLabel">
+      </mat-form-field>
+    </div>
+
+    <div class="TransferPanel-source">
+
+      <mat-nav-list>
+        <ng-container *ngFor="let item of preparedSourceStream$ | async">
+          <mat-list-item
+            *ngIf="!isSelected(item)"
+            (click)="toggleActiveSource(item)"
+            [class.is-active]="activeSource && activeSource.indexOf(item) > -1"
+            class="TransferPanel-item"
+          >
+            <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+          </mat-list-item>
+        </ng-container>
+      </mat-nav-list>
+    </div>
+
+  </div>
+
+  <div class="TransferPanel-controls" fxFlex="0 0 80px" fxLayout="row" fxLayout.gt-sm="column">
+    <button (click)="addActiveSourceToSelected()"
+            [disabled]="!activeSource || !activeSource.length"
+            fxHide.lt-md mat-raised-button>
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+    <br>
+    <button (click)="removeActiveSelectedFromSelected()"
+            [disabled]="!activeSelected || !activeSelected.length"
+            fxHide.lt-md mat-raised-button>
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+
+    <button (click)="addActiveSourceToSelected()"
+            [disabled]="!activeSource || !activeSource.length"
+            fxHide.gt-sm mat-raised-button>
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <button (click)="removeActiveSelectedFromSelected()"
+            [disabled]="!activeSelected || !activeSelected.length"
+            fxHide.gt-sm mat-raised-button>
+      <mat-icon>keyboard_arrow_up</mat-icon>
+    </button>
+  </div>
+
+  <div class="TransferPanel-panel" fxFlex="1 1 50%" fxFlex.lt-sm="1 1 100%">
+    <div class="TransferPanel-title">
+      <mat-form-field class="TransferPanel-search">
+        <input matInput [(ngModel)]="selectedSearchTerm" [placeholder]="selectedListLabel">
+      </mat-form-field>
+    </div>
+    <mat-nav-list class="TransferPanel-destination">
+      <mat-list-item
+        *ngFor="let item of preparedSelectedStream$ | async"
+        (click)="toggleActiveSelected(item)"
+        [class.is-active]="activeSelected && activeSelected.indexOf(item) > -1"
+        class="TransferPanel-item"
+      >
+        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+      </mat-list-item>
+    </mat-nav-list>
+  </div>
+
+</div>
+
+<!--<div class="TransferPanel" fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutGap.lt-md="30px">-->
+<!--  <div class="TransferPanel-panel" fxFlex="1 1 50%" fxFlex.lt-md="1 1 100%">-->
+<!--    <div class="TransferPanel-title"></div>-->
+
+<!--    <div class="TransferPanel-source">-->
+<!--      <mat-nav-list>-->
+<!--        <mat-list-item-->
+<!--          (click)="onSelectionSourceChange(sport)"-->
+<!--          *ngFor="let sport of availableSportActivities"-->
+<!--          [class.is-active]="selectedSource && selectedSource.indexOf(sport) > -1"-->
+<!--          class="TransferPanel-item">-->
+<!--          <mat-icon *ngIf="sport.icon" [svgIcon]="sport.icon" mat-list-icon></mat-icon>-->
+<!--          <p mat-line>{{'sportActivities.' + sport.id | translate}}</p>-->
+<!--        </mat-list-item>-->
+<!--      </mat-nav-list>-->
+<!--    </div>-->
+
+<!--  </div>-->
+
+<!--  <div class="TransferPanel-controls" fxFlex="0 0 100px" fxLayout.gt-sm="column" fxLayout.lt-md="row">-->
+<!--    <button (click)="onAddToFavoritesClick()" [disabled]="!selectedSource || !selectedSource.length"-->
+<!--            fxHide.lt-md mat-raised-button>-->
+<!--      <mat-icon>keyboard_arrow_right</mat-icon>-->
+<!--    </button>-->
+<!--    <br>-->
+<!--    <button (click)="onRemoveFromFavoritesClick()"-->
+<!--            [disabled]="!selectedFavorites || !selectedFavorites.length"-->
+<!--            fxHide.lt-md mat-raised-button>-->
+<!--      <mat-icon>keyboard_arrow_left</mat-icon>-->
+<!--    </button>-->
+
+<!--    <button (click)="onAddToFavoritesClick()" [disabled]="!selectedSource || !selectedSource.length"-->
+<!--            fxHide.gt-sm mat-raised-button>-->
+<!--      <mat-icon>keyboard_arrow_down</mat-icon>-->
+<!--    </button>-->
+<!--    <button (click)="onRemoveFromFavoritesClick()"-->
+<!--            [disabled]="!selectedFavorites || !selectedFavorites.length"-->
+<!--            fxHide.gt-sm mat-raised-button>-->
+<!--      <mat-icon>keyboard_arrow_up</mat-icon>-->
+<!--    </button>-->
+<!--  </div>-->
+
+<!--  <div class="TransferPanel-panel" fxFlex="1 1 50%" fxFlex.lt-sm="1 1 100%">-->
+<!--    <div class="TransferPanel-title" translate="transferPanel.selected.title"></div>-->
+<!--    <mat-nav-list #selected class="TransferPanel-destination">-->
+<!--      <mat-list-item-->
+<!--        (click)="onSelectionFavoritesChange(sport)"-->
+<!--        *ngFor="let sport of favoriteSportActivities"-->
+<!--        [class.is-active]="selectedFavorites && selectedFavorites.indexOf(sport) > -1"-->
+<!--        class="TransferPanel-item">-->
+<!--        <mat-icon *ngIf="sport.icon" [svgIcon]="sport.icon" mat-list-icon></mat-icon>-->
+<!--        <p mat-line>{{'sportActivities.' + sport.id | translate}}</p>-->
+<!--      </mat-list-item>-->
+<!--    </mat-nav-list>-->
+<!--  </div>-->
+
+<!--</div>-->

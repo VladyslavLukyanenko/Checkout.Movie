@@ -1,0 +1,12 @@
+<div class="profile-widget" *ngIf="identity">
+  <header class="heading">
+    <div class="image">
+       <img [src]="identity.avatar" alt="" class="SidenavProfileWidget-image">
+    </div>
+
+    <h2 class="user-name">
+      {{identity.name}}#{{identity.discriminator}}
+    </h2>
+
+  </header>
+</div>

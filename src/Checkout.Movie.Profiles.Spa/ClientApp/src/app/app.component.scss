@@ -1,0 +1,16 @@
+:host {
+  height: 100%;
+  display: block;
+}
+
+.app-progress {
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  opacity: 0;
+  transition: .5s opacity;
+
+  &.is-visible {
+    opacity: 1;
+  }
+}

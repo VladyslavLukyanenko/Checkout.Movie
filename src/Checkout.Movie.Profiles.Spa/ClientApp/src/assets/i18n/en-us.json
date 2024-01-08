@@ -1,0 +1,99 @@
+{
+  "account": {
+    "login": {
+      "primaryHeader": "Sign in to your account",
+      "externalLoginHeader": "Don't want to register? Sign in with:"
+    },
+    "loginForm": {
+      "email": {
+        "label": "Email (login)",
+        "placeholder": "Please enter your email (login)"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Please enter your password"
+      },
+      "submit": "Sign in"
+    }
+  },
+  "validation": {
+    "errors": {
+      "notANumber": "Please enter a numeric value.",
+      "email": "Please enter a valid email address.",
+      "required": "This field is <strong>required</strong>!",
+      "emailIsRegistered": "User with this email already registered.",
+      "doesNotMatch": "Value of this field is not match value of '{{targetFieldName}}' field.",
+      "minlength": "The length of value should be greater than {{minlength}}.",
+      "maxlength": "The length of value should be less than {{maxlength}}.",
+      "gt": "Value should be greater than {{value}}.",
+      "isSlugAvailable": "You can't use profile page name '{{value}}' because it's used by someone else.",
+      "passwordNotWeek": "Password is not complicated enough. It should contain at least one number, lower letter and upper letter. ",
+      "invalidValue": "Value must be greater than 0.",
+      "pattern": "Invalid value.",
+      "timeDurationValid": "Start time can't be after end time."
+    }
+  },
+  "mainMenu": {
+    "profiles": "Profiles",
+    "login": "Log In",
+    "register": "Create account"
+  },
+  "transferPanel": {
+    "available": {
+      "title": "Available"
+    },
+    "selected": {
+      "title": "Selected"
+    }
+  },
+  "confirmDialog": {
+    "defaults": {
+      "okText": "Yes",
+      "cancelText": "No"
+    }
+  },
+  "file-uploader": {
+    "title": "File upload",
+    "file-url-pl": "Paste file URL:",
+    "url": "URL:",
+    "or-text": "or",
+    "file-upload-pl": "Upload file from your PC:",
+    "upload-all-btn": "Upload all",
+    "uploader-text": "Click or drag and drop",
+    "add-new-url": "Add new url"
+  },
+  "toolbar": {
+    "notifications": "Notifications",
+    "help": "Help page",
+    "logOut": "Log out",
+    "culture": "Change application language",
+    "sidebar": "Show/hide sidebar"
+  },
+  "photo-uploader": {
+    "or": "or",
+    "url": "Paste URL"
+  },
+  "primitives": {
+    "bool": {
+      "true": "Yes",
+      "false": "No"
+    }
+  },
+  "datepicker": {
+    "rangeLabel": "Range",
+    "presets": {
+      "today": "Today",
+      "currentWeek": "Current week",
+      "currentMonth": "Current month",
+      "lastWeek": "Last week",
+      "lastMonth": "Last month"
+    }
+  },
+  "commonMessages": {
+    "created": "Created successfully",
+    "removed": "Removed successfully",
+    "updated": "Updated successfully",
+    "done": "Operation completed successfully",
+    "failed": "An error occurred"
+  }
+}

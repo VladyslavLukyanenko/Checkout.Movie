@@ -1,0 +1,56 @@
+<pst-layout-content-container>
+  <pst-layout-header [formGroup]="filtersForm" fxLayout="row" fxLayoutGap="10px">
+    <mat-form-field fxFlex="1 1 100%">
+      <mat-label>Search...</mat-label>
+      <input matNativeControl formControlName="searchTerm">
+
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field class="ProfilesPage-tags">
+      <mat-label>Tags</mat-label>
+      <mat-select formControlName="tags" multiple>
+        <mat-option
+          *ngFor="let tag of tags$ | async"
+          [value]="tag"
+        >
+          {{tag}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </pst-layout-header>
+  <pst-layout-content style="position: relative;">
+    <div *ngIf="asyncTracker.isLoading$ | async" class="ProfilesPage-loader">
+      <mat-spinner mode="indeterminate"></mat-spinner>
+    </div>
+
+    <ul *ngIf="profilesListVisible$ | async" fxLayout="row wrap" class="ProfilesList">
+      <li *ngFor="let profile of profiles$ | async; trackBy: trackById" fxFlex="1 1 100%" fxFlex.gt-sm="1 1 49%" class="ProfilesList-item">
+        <pst-profile
+          (changed)="refreshProfilesList()"
+          (removed)="refreshProfilesList()"
+          [profile]="profile"
+        ></pst-profile>
+      </li>
+    </ul>
+    <button
+      *ngIf="!(noProfilesExists$ | async)"
+      (click)="create()"
+      mat-fab
+      color="primary"
+      style="position: absolute; right: 30px; bottom: 30px; z-index: 1;"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+    <div *ngIf="noProfilesExists$ | async" class="ProfilesPage-noProfiles">
+      No profiles created yet. <br>
+      <button (click)="create()" mat-button color="primary">Create one</button>
+    </div>
+
+    <div *ngIf="nothingFound$ | async" class="ProfilesPage-noProfiles">
+      Nothing found.
+    </div>
+  </pst-layout-content>
+</pst-layout-content-container>

@@ -1,0 +1,5 @@
+<span
+  *ngIf="control.hasError('pattern') && !control.hasError('required')"
+  [innerHTML]="errorMessage || 'validation.errors.pattern' | translate"
+></span>
+

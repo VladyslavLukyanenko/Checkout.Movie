@@ -1,0 +1,15 @@
+:host {
+  height: 100%;
+  overflow-y: auto;
+  position: relative;
+  margin: 0 15px 15px;
+  box-shadow: 0 3px 10px #0000008a;
+  flex-grow: 1;
+  background: #404044;
+}
+
+@media (max-width: 768px) {
+  :host {
+    margin: 0 10px 10px;
+  }
+}

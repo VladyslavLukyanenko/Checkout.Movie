@@ -1,0 +1,40 @@
+<a
+  *ngIf="!link"
+  (click)="navigate($event);"
+  [ngClass]="state && state === 'visible' ? 'is-active' : ''"
+  href="javascript:void 0"
+  class="menu-link"
+>
+  <ng-container [ngTemplateOutlet]="contentTpl"></ng-container>
+</a>
+<a
+  *ngIf="link"
+  [routerLink]="link"
+  [routerLinkActive]="link ? 'is-active' : ''"
+  (click)="dispatchClick()"
+  href="#"
+  class="menu-link"
+>
+  <ng-container [ngTemplateOutlet]="contentTpl"></ng-container>
+</a>
+
+<div class="nested-content">
+  <ng-content></ng-content>
+</div>
+
+<ng-template #contentTpl>
+  <mat-icon
+    *ngIf="icon"
+    [matBadge]="badgeValue"
+    matBadgeColor="warn"
+  >
+    {{icon}}
+  </mat-icon>
+  {{label | translate}}
+
+  <button *ngIf="menus.length" mat-icon-button aria-label="Open" class="arrow-right" id="arrow-right">
+    <mat-icon [ngClass]="{'transformed-arrow': state === 'visible'}">
+      <img src=" ../assets/icons/keyboard_arrow_right.svg" alt="">
+    </mat-icon>
+  </button>
+</ng-template>

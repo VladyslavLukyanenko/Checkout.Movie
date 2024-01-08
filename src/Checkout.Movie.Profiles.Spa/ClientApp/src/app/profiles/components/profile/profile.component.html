@@ -1,0 +1,164 @@
+<form [formGroup]="profile">
+  <input type="hidden" formControlName="id">
+
+  <mat-card>
+    <!--      matBadgePosition="before" [matBadgeHidden]="!profile.id" [matBadge]="'#' + profile.id"-->
+    <mat-card-content
+      fxLayout="row wrap"
+    >
+      <div fxFlex="1 1 100%" fxLayout="row">
+        <mat-form-field fxFlex="1 1 100%" class="Profile-encryptionInput" appearance="outline">
+          <button
+            *ngIf="!isReadOnly"
+            (click)="copyEncryptionKeyToClipboard()"
+            mat-button
+            matTooltip="Copy encryption token to clipboard"
+            matPrefix
+            mat-icon-button
+          >
+            <mat-icon>content_copy</mat-icon>
+          </button>
+          <mat-label>Encryption Key</mat-label>
+          <input matNativeControl placeholder="Encryption Key" [formControl]="profile.encryptionKeyCtrl">
+          <button
+            *ngIf="profile.id"
+            (click)="toggleEncryption()"
+            [disabled]="!profile.encryptionKeyCtrl.value || !profile.encryptionKeyCtrl.valid"
+            mat-button
+            matSuffix
+            mat-icon-button
+          >
+            <mat-icon *ngIf="profile.isEncrypted">visibility</mat-icon>
+            <mat-icon *ngIf="!profile.isEncrypted">visibility_off</mat-icon>
+          </button>
+          <button
+            *ngIf="!profile.id && !isReadOnly"
+            (click)="generateToken()"
+            matTooltip="Generate encryption token"
+            mat-button
+            matSuffix
+            mat-icon-button
+          >
+            <mat-icon>flash_on</mat-icon>
+          </button>
+          <button
+            *ngIf="profile.id && !isReadOnly"
+            (click)="toggleRememberEncryptionKey()"
+            [disabled]="!profile.encryptionKeyCtrl.value || !profile.encryptionKeyCtrl.valid"
+            matTooltip="Remember encryption key on your machine"
+            mat-button
+            matSuffix
+            mat-icon-button
+          >
+            <mat-icon *ngIf="isKeyRemembered">turned_in</mat-icon>
+            <mat-icon *ngIf="!isKeyRemembered">turned_in_not</mat-icon>
+          </button>
+
+          <mat-error *ngIf="profile.encryptionKeyCtrl.invalid">
+            The key must be 32 chars length
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field fxFlex="1 1 100%">
+        <input matNativeControl placeholder="Profile name" formControlName="name"/>
+        <mat-error>
+          <pst-mat-error-required [control]="profile.nameCtrl"></pst-mat-error-required>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="1 1 100%">
+        <mat-chip-list #chipList aria-label="Tags selection" [disabled]="profile.isLocked">
+          <mat-chip
+            *ngFor="let tag of profile.tags$ | async"
+            (removed)="removeTag(tag)"
+            [selectable]="true"
+            [removable]="true"
+          >
+            {{tag}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Tags"
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="true"
+                 (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+      </mat-form-field>
+      <div fxLayout="row wrap" fxLayoutAlign="space-between" fxFlex="100%">
+        <mat-card fxFlex="1 1 100%" fxFlex.gt-md="1 1 29%">
+          <mat-card-header>
+            <h3 mat-card-title>Credit card</h3>
+          </mat-card-header>
+          <mat-card-content>
+            <pst-credit-card formGroupName="creditCard"></pst-credit-card>
+          </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex="1 1 100%" fxFlex.gt-md="1 1 69%">
+          <mat-card-header>
+            <h3 mat-card-title>Address</h3>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-tab-group mat-align-tabs="center">
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <span [class.invalidTextColor]="profile.shippingAddressCtrl.invalid">Shipping</span>
+                </ng-template>
+                <pst-address style="margin-top: 15px;" formGroupName="shippingAddress"></pst-address>
+              </mat-tab>
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <span [class.invalidTextColor]="profile.billingAddressCtrl.invalid">Billing</span>
+                </ng-template>
+                <pst-address style="margin-top: 15px;" formGroupName="billingAddress"></pst-address>
+              </mat-tab>
+            </mat-tab-group>
+            <mat-checkbox formControlName="areAddressesSame">Address the same</mat-checkbox>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+    </mat-card-content>
+    <mat-card-actions
+      *ngIf="profile.id && !isReadOnly"
+      style="overflow: auto"
+      fxLayout.xs="column"
+      fxLayoutGap.xs="5px"
+    >
+      <button
+        (click)="update()"
+        [disabled]="profile.isLocked"
+        mat-button
+        mat-stroked-button
+        color="primary"
+        fxFlex.xs="1 1 100%"
+      >
+        Save Changes
+      </button>
+
+      <button
+        (click)="showSharingDetails()"
+        mat-button
+        mat-stroked-button
+        fxFlex.xs="1 1 100%"
+      >
+        <mat-icon
+          *ngIf="accessRequested$ | async"
+          [style.color]="'#FF8F00'"
+          matTooltip="Someone requested access to this profile"
+        >
+          notification_important
+        </mat-icon>
+        Sharing Details
+      </button>
+      <button
+        (click)="removeCard()"
+        mat-button
+        mat-stroked-button
+        color="warn"
+        fxFlex.xs="1 1 100%"
+      >
+        Remove
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

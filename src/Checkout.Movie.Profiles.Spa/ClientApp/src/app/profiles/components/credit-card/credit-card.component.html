@@ -1,0 +1,41 @@
+<div [formGroup]="creditCardForm" fxLayout="column">
+  <mat-form-field fxFlex="1 1 100%">
+    <input
+      matNativeControl
+      placeholder="Credit card number"
+      formControlName="cardNumber"
+    />
+    <mat-hint align="end">
+      {{creditCardForm.cardType$ | async}}
+    </mat-hint>
+    <mat-error>
+      <pst-mat-error-required [control]="creditCardForm.cardNumberCtrl"></pst-mat-error-required>
+      <span *ngIf="creditCardForm.cardNumberCtrl.hasError('creditCard')">
+        Invalid credit card number
+      </span>
+    </mat-error>
+  </mat-form-field>
+  <div fxLayout="column" fxLayout.gt-md="row" fxFlex="1 1 100%">
+    <mat-form-field fxFlex="1 1 100%" fxFlex.gt-sm="1 1 60%">
+      <input
+        matNativeControl
+        placeholder="Expiration date"
+        formControlName="expiry"/>
+      <mat-error>
+        <pst-mat-error-required [control]="creditCardForm.expiryCtrl"></pst-mat-error-required>
+        <span *ngIf="creditCardForm.expiryCtrl.hasError('expirationDate')">
+          Invalid expiration date
+        </span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field  fxFlex="1 1 100%" fxFlex.gt-sm="1 1 40%">
+      <input matNativeControl placeholder="CVV" formControlName="cvv"/>
+      <mat-error>
+        <pst-mat-error-required [control]="creditCardForm.cvvCtrl"></pst-mat-error-required>
+        <span *ngIf="creditCardForm.cvvCtrl.hasError('cvv')">
+          Invalid value
+        </span>
+      </mat-error>
+    </mat-form-field>
+  </div>
+</div>

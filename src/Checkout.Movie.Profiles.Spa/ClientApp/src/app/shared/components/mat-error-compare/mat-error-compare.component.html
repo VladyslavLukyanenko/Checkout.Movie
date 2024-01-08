@@ -1,0 +1,3 @@
+<span
+  *ngIf="control.hasError('doesNotMatch') && !control.hasError('required')"
+  [innerHTML]="'validation.errors.doesNotMatch' | translate:{'targetFieldName': comparedControlName}"></span>

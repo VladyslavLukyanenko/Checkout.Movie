@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>{{translate(data.title) | async}}</h2>
+<mat-dialog-content>
+  {{translate(data.message, data.messageParams) | async}}
+</mat-dialog-content>
+
+<mat-dialog-actions class="ConfirmDialog-actions">
+  <button mat-raised-button color="primary" (click)="ok()" class="ConfirmDialog-confirm">
+    {{translate(data.okText || 'confirmDialog.defaults.okText') | async}}
+  </button>
+  <button mat-button (click)="cancel()" class="discard">
+    {{translate(data.cancelText || 'confirmDialog.defaults.cancelText') | async}}
+  </button>
+</mat-dialog-actions>

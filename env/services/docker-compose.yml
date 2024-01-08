@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:12
+    ports:
+      - 5432:5432
+    volumes:profiles@localhost
+      - ./data/db:/var/lib/postgresql/data
+      - ./data/dumps:/psql_dumps
+    environment:
+      POSTGRES_USER: profiles
+      POSTGRES_PASSWORD: profiles
+      POSTGRES_DB: profiles

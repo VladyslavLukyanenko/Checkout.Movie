@@ -1,0 +1,9 @@
+<mat-select [placeholder]="placeholder" [formControl]="control">
+  <mat-select-trigger>
+    <pst-star-rating [size]="14" [value]="control.value" [isReadOnly]="true"></pst-star-rating>
+  </mat-select-trigger>
+  <mat-option [value]="null"></mat-option>
+  <mat-option *ngFor="let r of availableRatings; let i = index" [value]="i + 1">
+    <pst-star-rating [size]="14" [value]="i + 1" [isReadOnly]="true"></pst-star-rating>
+  </mat-option>
+</mat-select>

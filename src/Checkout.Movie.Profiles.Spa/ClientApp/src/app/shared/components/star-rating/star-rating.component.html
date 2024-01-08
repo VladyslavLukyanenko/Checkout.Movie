@@ -1,0 +1,22 @@
+<div *ngIf="state | async as currentState" class="StarRating">
+  <ng-container *ngFor="let star of currentState.filledStars; let i = index">
+    <ng-template *ngTemplateOutlet="iconTmpl; context: {icon: 'star', idx: i }"></ng-template>
+  </ng-container>
+  <ng-container *ngFor="let star of currentState.emptyStars; let i = index">
+    <ng-template *ngTemplateOutlet="iconTmpl; context: {icon: 'star_border', idx: i + filledCount }"></ng-template>
+  </ng-container>
+</div>
+
+<ng-template let-icon="icon" let-idx="idx" #iconTmpl>
+  <mat-icon
+    (click)="dispatchValueChange(idx)"
+    (mouseover)="trySetHoveIdx(idx)"
+    class="StarRating-star"
+    [style.fontSize.px]="size"
+    [style.height.px]="size"
+    [style.width.px]="size"
+    [class.is-highlighted]="!isReadOnly && idx <= (hoveredIdx$ | async)"
+  >
+    {{icon}}
+  </mat-icon>
+</ng-template>

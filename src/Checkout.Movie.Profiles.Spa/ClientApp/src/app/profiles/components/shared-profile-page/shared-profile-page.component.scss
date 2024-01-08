@@ -1,0 +1,15 @@
+:host {
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background: #333335;
+}
+
+.SharedProfilePage {
+  max-width: 670px;
+  width: 100%;
+}

@@ -1,0 +1,15 @@
+<pst-menu *ngIf="user; else anonymousUserMenu">
+
+  <pst-menu-item
+    [link]="['/', 'profiles']"
+    icon="credit_card"
+    label="mainMenu.profiles"
+  ></pst-menu-item>
+
+</pst-menu>
+
+<ng-template #anonymousUserMenu>
+  <pst-menu>
+    <pst-menu-item [link]="['/', 'login']" icon="input" label="mainMenu.login"></pst-menu-item>
+  </pst-menu>
+</ng-template>

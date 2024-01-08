@@ -1,0 +1,9 @@
+.StarRating {
+  &-star {
+    cursor: pointer;
+  }
+
+  &-star.is-highlighted {
+    color: #ffc107;
+  }
+}

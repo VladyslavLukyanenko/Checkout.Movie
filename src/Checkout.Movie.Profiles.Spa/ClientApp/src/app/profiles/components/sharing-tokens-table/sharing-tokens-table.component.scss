@@ -1,0 +1,16 @@
+.TokensPage {
+
+  &-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+  }
+
+  &-noData {
+    text-align: center;
+    margin-top: 4em;
+    color: #999;
+    font-size: .7em;
+  }
+}

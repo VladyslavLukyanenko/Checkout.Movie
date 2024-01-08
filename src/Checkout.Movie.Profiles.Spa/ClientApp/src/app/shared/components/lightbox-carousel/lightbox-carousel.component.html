@@ -1,0 +1,49 @@
+<div class="LightboxCarousel">
+  <div class="LightboxCarousel-presenter">
+    <button
+      (click)="activatePrev()"
+      mat-icon-button
+      class="LightboxCarousel-controls LightboxCarousel-prevBtn"
+      [disabled]="!hasPrev"
+    >
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+
+    <button
+      (click)="activateNext()"
+      mat-icon-button
+      class="LightboxCarousel-controls LightboxCarousel-nextBtn"
+      [disabled]="!hasNext"
+    >
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+
+    <ng-container *ngIf="activeItem">
+      <ng-container *ngTemplateOutlet="presenterTmpl; context: {$implicit: activeItem}"></ng-container>
+    </ng-container>
+  </div>
+  <ul class="LightboxCarousel-list">
+    <li *ngFor="let item of data" class="LightboxCarousel-listItem" (click)="activate(item)"
+        [class.is-active]="item === activeItem">
+      <ng-container *ngTemplateOutlet="presenterTmpl; context: {$implicit: item}"></ng-container>
+    </li>
+  </ul>
+</div>
+<ng-template #presenterTmpl let-item>
+  <ng-container [ngSwitch]="item.type">
+    <ng-container *ngSwitchCase="'image'">
+      <ng-container *ngTemplateOutlet="imageTypeTmpl; context: {$implicit: item}"></ng-container>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'video'">
+      <ng-container *ngTemplateOutlet="videoTypeTmpl; context: {$implicit: item}"></ng-container>
+    </ng-container>
+  </ng-container>
+</ng-template>
+<ng-template #imageTypeTmpl let-item>
+  <div class="LightboxCarousel-item is-image" [style.background-image]="item._renderedSource"></div>
+</ng-template>
+
+<ng-template #videoTypeTmpl let-item>
+  <div class="LightboxCarousel-item is-video" [innerHTML]="item._renderedSource"></div>
+</ng-template>

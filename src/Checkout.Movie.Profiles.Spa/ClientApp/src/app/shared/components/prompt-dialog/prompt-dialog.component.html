@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>{{translate(config.title) | async}}</h2>
+<mat-dialog-content>
+  {{translate(config.message, config.messageParams) | async}}
+  <mat-form-field class="PromptDialog-input">
+    <input matInput [formControl]="answer" [placeholder]="translate(config.message, config.messageParams) | async">
+    <pst-mat-error-required [control]="answer"></pst-mat-error-required>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions class="PromptDialog-actions">
+  <button
+    (click)="ok()"
+    mat-raised-button
+    class="PromptDialog-confirm"
+    color="primary"
+  >
+    {{translate(config.yesText || 'Ok') | async}}
+  </button>
+  <button (click)="cancel()" mat-button>{{translate(config.cancelText || 'Cancel') | async}}</button>
+</mat-dialog-actions>

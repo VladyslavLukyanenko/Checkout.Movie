@@ -1,0 +1,6 @@
+<mat-select [multiple]="multiple" [formControl]="control" [placeholder]="placeholder | translate" [value]="value">
+  <mat-option>{{noneText | translate}}</mat-option>
+  <mat-option *ngFor="let option of helpers.values(enum)" [value]="enum[option]">
+    {{translationPath + option | translate}}
+  </mat-option>
+</mat-select>

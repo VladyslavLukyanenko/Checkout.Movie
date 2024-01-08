@@ -1,0 +1,55 @@
+<mat-sidenav-container class="Layout" fxFill>
+  <mat-sidenav
+    [(opened)]="opened"
+    [autoFocus]="false"
+    [fixedInViewport]="fixedInViewport"
+    [mode]="mode"
+    class="Layout-sidebar main-sidenav"
+  >
+    <div class="main-sidenav-content">
+      <header class="main-sidenav-heading">
+        <img class="main-sidenav-logo" src="/assets/logo.svg" alt="Profiles">
+        Checkout Movie
+      </header>
+      <pst-profile-widget></pst-profile-widget>
+      <pst-main-menu (toggleSidenav)="toggleSidenavOnItemClicked()"></pst-main-menu>
+    </div>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content class="Layout-content" fxFlex="1 1 100%" fxLayout="column">
+
+    <mat-toolbar class="Layout-header Toolbar">
+
+      <mat-toolbar-row class="Toolbar-mainSection">
+        <button (click)="toggleSidenav()"
+                [matTooltip]="'toolbar.sidebar' | translate" class="Toolbar-sidenavToggle" mat-icon-button>
+          <mat-icon>menu</mat-icon>
+        </button>
+
+        <h1 class="Toolbar-pageTitle" fxHide fxShow.xs="true">{{(titleToken | translate)}}</h1>
+        <h1 class="Toolbar-pageTitle" fxShow fxHide.xs="true">{{titleToken | translate}}</h1>
+
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+          <button
+            *ngIf="currentUser$ | async"
+            (click)="logOut()"
+            [matTooltip]="'toolbar.logOut' | translate"
+            [style.fontSize]="0"
+            mat-icon-button
+          >
+            <mat-icon>power_settings_new</mat-icon>
+          </button>
+        </div>
+      </mat-toolbar-row>
+
+    </mat-toolbar>
+
+    <div class="Layout-main" fxFlex="1 1 100%">
+      <div class="Layout-viewport" fxFlex="1 1 100%">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

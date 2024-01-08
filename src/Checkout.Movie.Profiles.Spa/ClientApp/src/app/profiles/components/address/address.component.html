@@ -1,0 +1,91 @@
+<div fxLayout="row wrap" [formGroup]="addressForm">
+  <mat-form-field fxFlex="1 1 100%" fxFlex.gt-xs="1 1 50%">
+    <mat-label>First Name</mat-label>
+    <input matNativeControl formControlName="firstName" placeholder="First Name">
+    <mat-error>
+      <pst-mat-error-required [control]="addressForm.firstNameCtrl"></pst-mat-error-required>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field fxFlex="1 1 100%" fxFlex.gt-xs="1 1 50%">
+    <mat-label>Last Name</mat-label>
+    <input matNativeControl formControlName="lastName" placeholder="Last Name">
+    <mat-error>
+      <pst-mat-error-required [control]="addressForm.lastNameCtrl"></pst-mat-error-required>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field fxFlex="1 1 100%">
+    <mat-label>Address 1</mat-label>
+    <input matNativeControl formControlName="addressLine1" placeholder="Address 1">
+    <mat-error>
+      <pst-mat-error-required [control]="addressForm.addressLine1Ctrl"></pst-mat-error-required>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field fxFlex="1 1 100%" fxFlex.gt-xs="1 1 50%">
+    <mat-label>Address 2</mat-label>
+    <input matNativeControl formControlName="addressLine2" placeholder="Address 2">
+  </mat-form-field>
+  <mat-form-field fxFlex="1 1 100%" fxFlex.gt-xs="1 1 50%">
+    <mat-label>Country</mat-label>
+    <mat-select
+      (valueChange)="handleCountryChanged($event)"
+      formControlName="countryId"
+    >
+      <mat-option
+        *ngFor="let c of countries$ | async"
+        [value]="c.id"
+      >
+        {{c.title}}
+      </mat-option>
+    </mat-select>
+    <mat-error>
+      <pst-mat-error-required [control]="addressForm.countryIdCtrl"></pst-mat-error-required>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field *ngIf="isProvinceLabelVisible$ | async" fxFlex="1 1 50%">
+    <mat-label>
+      {{provincesLabel$ | async}}
+    </mat-label>
+    <mat-select *ngIf="isProvinceListVisible$ | async" formControlName="provinceCode">
+      <ng-container *ngIf="selectedCountry$ | async as country">
+        <mat-option
+          *ngFor="let p of country.provinces"
+          [value]="p.code"
+        >
+          {{p.title}}
+        </mat-option>
+      </ng-container>
+    </mat-select>
+
+    <input
+      *ngIf="isProvinceInputVisible$ | async"
+      matNativeControl
+      formControlName="provinceCode"
+      [placeholder]="provincesLabel$ | async">
+    <mat-error>
+      <pst-mat-error-required [control]="addressForm.provinceCodeCtrl"></pst-mat-error-required>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field fxFlex="1 1 100%" fxFlex.gt-xs="1 1 50%">
+    <mat-label>City</mat-label>
+    <input matNativeControl formControlName="city" placeholder="City">
+    <mat-error>
+      <pst-mat-error-required [control]="addressForm.cityCtrl"></pst-mat-error-required>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field fxFlex="1 1 100%" fxFlex.gt-xs="1 1 50%">
+    <mat-label>
+      {{postalCodeLabel$ | async}}
+    </mat-label>
+    <input matNativeControl formControlName="postCode" [placeholder]="postalCodeLabel$ | async">
+    <mat-error>
+      <pst-mat-error-required [control]="addressForm.postCodeCtrl"></pst-mat-error-required>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field fxFlex="1 1 100%" fxFlex.gt-xs="1 1 50%">
+    <mat-label>Phone number</mat-label>
+    <input matNativeControl formControlName="phoneNumber" placeholder="Phone number">
+    <mat-error>
+      <pst-mat-error-required [control]="addressForm.phoneNumberCtrl"></pst-mat-error-required>
+    </mat-error>
+  </mat-form-field>
+</div>

@@ -1,0 +1,13 @@
+.PromptDialog {
+  &-input {
+    margin-top: 10px;
+    width: 100%;
+  }
+  &-confirm {
+    color: #fff;
+  }
+  &-actions {
+    margin-top: 20px;
+    justify-content: flex-end;
+  }
+}
